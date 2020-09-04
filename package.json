@@ -1,0 +1,24 @@
+{
+  "name": "koa-demo-web",
+  "version": "1.0.0",
+  "description": "普通Web端koa2框架，部分参考了林间有风的代码风格，适用于提供后台接口，供个人适用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "prod": "node app.js"
+  },
+  "author": "陈沛良",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^8.0.6",
+    "koa-sslify": "^4.0.3",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "lodash": "^4.17.15"
+  }
+}
