@@ -62,9 +62,7 @@ const self = {
     let newFileName = timestamp + suffix
     if (type) newFileName = name + '-' + newFileName
     return newFileName
-  }
-
-
+  },
 }
 
 module.exports = self

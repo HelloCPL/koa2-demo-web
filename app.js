@@ -11,10 +11,6 @@ const fs = require('fs')
 
 // 导入koa
 const Koa = require('koa')
-// 导出koa-body 用于文件上传 不需要另外适用koa-bodyparser
-const koaBody = require('koa-body')
-// 导入koa2-cors 跨域处理
-const cors = require('koa2-cors')
 
 // 导入项目自定义初始化文件
 const InitManager = require('./init')
@@ -23,17 +19,8 @@ const InitManager = require('./init')
 const app = new Koa()
 
 // ---------------------- 业务处理 --------------------
-// 跨域处理
-app.use(cors())
 // 初始化
 InitManager.init(app)
-// 处理文件上传中间件 同时处理body参数
-app.use(koaBody({
-  multipart: true, // 允许多文件上传
-  formidable: {
-    maxFieldsSize: global.config.maxFieldsSize //文件上传最大限制
-  }
-}))
 
 // 设置 http 监听
 http.createServer(app.callback())

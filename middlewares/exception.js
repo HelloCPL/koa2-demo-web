@@ -19,7 +19,7 @@ const catchError = async (ctx, next) => {
       ctx.body = {
         errcode: error.errcode,
         msg: error.msg,
-        data: error.data,
+        data: error.data || null,
         total: error.total
       }
       ctx.status = error.code

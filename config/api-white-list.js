@@ -4,11 +4,16 @@
   Update: 
 */
 
+// api 白名单
 const apiWhiteList = [
   // 不需要 token 校验的 api
   {
     path: '/api/test',
     method: ['GET', 'POST']
+  },
+  {
+    path: '/api/token/generate',
+    method: ['POST']
   }
 ]
 

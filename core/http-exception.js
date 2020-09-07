@@ -4,11 +4,22 @@
   Update: 
 */
 
+// 处理参数
+function _handleParams(params) {
+  if(global._.isPlainObject(params)) {
+    return params
+  } else if(global._.isArray(params) || global._.isNumber(params) || global._.isString(params) || global._.isBoolean(params)) {
+    return { msg: params }
+  } else {
+    return {}
+  }
+}
+
 // 错误类
 class HttpException extends Error {
   constructor(params) {
     super()
-    params = params || {}
+    params = _handleParams(params)
     this.msg = params.msg || '服务器发生错误'
     this.errcode = params.errcode || 500
     this.code = params.code || 200
@@ -21,7 +32,7 @@ class HttpException extends Error {
 class ParameterException extends HttpException {
   constructor(params) {
     super()
-    params = params || {}
+    params = _handleParams(params)
     this.msg = params.msg || '参数错误'
     this.errcode = params.errcode || 400
     this.code = params.code || 200
@@ -34,7 +45,7 @@ class ParameterException extends HttpException {
 class NotFoundException extends HttpException {
   constructor(params) {
     super()
-    params = params || {}
+    params = _handleParams(params)
     this.msg = params.msg || '资源不存在'
     this.errcode = params.errcode || 404
     this.code = params.code || 200
@@ -47,7 +58,7 @@ class NotFoundException extends HttpException {
 class ForbiddenException extends HttpException {
   constructor(params) {
     super()
-    params = params || {}
+    params = _handleParams(params)
     this.msg = params.msg || '权限不足'
     this.errcode = params.errcode || 403
     this.code = params.code || 200
@@ -60,7 +71,7 @@ class ForbiddenException extends HttpException {
 class AuthException extends HttpException {
   constructor(params) {
     super()
-    params = params || {}
+    params = _handleParams(params)
     this.msg = params.msg || '授权失败'
     this.errcode = params.errcode || 401
     this.code = params.code || 200
@@ -73,7 +84,7 @@ class AuthException extends HttpException {
 class Success extends HttpException {
   constructor(params) {
     super()
-    params = params || {}
+    params = _handleParams(params)
     this.msg = params.msg || '操作成功'
     this.errcode = params.errcode || 0
     this.code = params.code || 201

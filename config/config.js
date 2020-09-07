@@ -5,7 +5,7 @@
 */
 
 // 环境变量 dev 开发环境 prod 生产环境
-const Env = 'dev'
+const Env = process.argv[2]
 
 const Config = () => {
   switch (Env) {

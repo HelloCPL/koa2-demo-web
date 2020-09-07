@@ -21,7 +21,7 @@ class AuthToken {
         let decode
         if (!tokenInfo || !tokenInfo.name) throw new global.ForbiddenException({ msg: errmsg })
         try {
-          decode = jwt.verify(tokenInfo.name, global.securityToken.secretKey)
+          decode = jwt.verify(tokenInfo.name, global.config.securityToken.secretKey)
         } catch (e) {
           if (e.name === 'TokenExpiredError') errmsg = 'token令牌过期'
           throw new global.ForbiddenException({ msg: errmsg })
@@ -40,31 +40,22 @@ class AuthToken {
   // 生成token 参数 用户id
   static generateToken(userId) {
     if (!userId) throw new global.ParameterException({ msg: '生成token出错：请传入userId' })
-    return jwt.sign({ id }, global.securityToken.secretKey, { expiresIn: global.securityToken.expiresIn })
+    return jwt.sign({ id }, global.config.securityToken.secretKey, { expiresIn: global.config.securityToken.expiresIn })
   }
 
   // 检测 token 合法性
   static verifyToken(ctx) {
     const tokenInfo = basicAuth(ctx.req)
-    if (!tokenInfo || !tokenInfo.name) {
-      throw global.Success({
-        data: false,
-        msg: 'token令牌不存在'
-      })
-    }
+    if (!tokenInfo || !tokenInfo.name)
+      throw new global.ForbiddenException({ msg: 'token令牌不存在' })
     try {
-      jwt.verify(tokenInfo.name, global.securityToken.secretKey)
+      jwt.verify(tokenInfo.name, global.config.securityToken.secretKey)
     } catch (error) {
-      throw global.Success({
-        data: false,
-        msg: 'token令牌不存在'
-      })
+      throw new global.ForbiddenException({ msg: 'token令牌不存在' })
     }
-    throw global.Success({
-      data: true
-    })
+    throw new global.Success({ data: true })
   }
-  
+
 }
 
 module.exports = AuthToken
