@@ -1,6 +1,6 @@
 /*
   Author: chen
-  Description: koa2 项目入口 主要用户 设置http/https监听 导入koa koa-body(用于文件上传) 项目初始化 全局异常捕捉 静态资源托管
+  Description: koa2 项目入口 主要用户 设置http/https监听
   Update: 
 */
 

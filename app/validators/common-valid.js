@@ -21,15 +21,15 @@ class ParameterValidtor extends LinValidator {
       }
     } else if (global._.isPlainObject(rules)) {
       // 对象
-      this.setRule(rules)
+      this._setRule(rules)
     } else {
-      throw new Error('服务器发生错误，普通参数校验传参有误')
+      throw new Error('服务器发生错误，普通参数校验传参有误1')
     }
   }
 
   // 设置校验
   _setRule(rule) {
-    if (!global._.isArray(rule)) throw new Error('服务器发生错误，普通参数校验传参有误')
+    if (!global._.isArray(rule.rules)) throw new Error('服务器发生错误，普通参数校验传参有误2')
     let ruleList = []
     if (global._.isArray(rule.rules[0])) {
       for (let i = 0, len = rule.rules.length; i < len; i++) {

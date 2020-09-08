@@ -9,32 +9,39 @@ const Router = require('koa-router')
 const router = new Router({ prefix: '/api' })
 
 // 导入参数处理方法
-const {
-  verifyIdValidator
-} = require(`${process.cwd()}/app/validators/token-valid`)
+const { VerifyIdValidator } = require(`${process.cwd()}/app/validators/token-valid`)
 // 导入业务处理方法
-
+const TokenModel = require(`${process.cwd()}/app/model/token-model`)
+const { ParameterValidtor } = require(`${process.cwd()}/app/validators/common-valid`)
 // 请求生成 token
-// 参数 id(必填)
+// 参数 必填 id
 router.post('/token/generate', async (ctx, next) => {
   // 校验并返回参数 
-  const v = await new verifyIdValidator().validate(ctx)
-  console.log(123, v);
-  throw new global.Success({
-    data: 'sdfsdf第三方的时代'
-  })
+  const v = await new VerifyIdValidator().validate(ctx)
+  let id = await v.get('body.id')
+  // 业务处理并返回
+  TokenModel.tokenGenerate(id)
 })
 
-router.post('/token/generate123', async (ctx, next) => {
-  // 校验并返回参数 
-  // const v = await new verifyIdValidator().validate(ctx)
-  // console.log(v);
-  throw new global.Success({
-    data: 'sdfsdf第三方的时代'
-  })
+// 校验 token 合法性
+router.post('/token/verify', async (ctx, next) => {
+  // 业务处理并返回
+  TokenModel.tokenVerify(ctx)
 })
 
-
-
+// 测试接口
+// 参数 必填) a 选填 b
+router.post('/test', async (ctx, next) => {
+  const v = await new ParameterValidtor({
+    key: 'a',
+    rules: ['isLength', '参数必填', { min: 1 }]
+  }).validate(ctx)
+  let a = await v.get('body.a')
+  let b = await v.get('body.b')
+  let c = await v.get('header.content-type')
+  throw new global.Success({
+    data: `a=${a} b=${b} c=${c}`
+  })
+})
 
 module.exports = router

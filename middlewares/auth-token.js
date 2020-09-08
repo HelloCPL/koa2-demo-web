@@ -38,8 +38,8 @@ class AuthToken {
   }
 
   // 生成token 参数 用户id
-  static generateToken(userId) {
-    if (!userId) throw new global.ParameterException({ msg: '生成token出错：请传入userId' })
+  static generateToken(id) {
+    if (!id) throw new global.ParameterException({ msg: '生成token出错：请传入userId' })
     return jwt.sign({ id }, global.config.securityToken.secretKey, { expiresIn: global.config.securityToken.expiresIn })
   }
 

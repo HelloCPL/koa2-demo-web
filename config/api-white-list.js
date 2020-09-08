@@ -14,6 +14,10 @@ const apiWhiteList = [
   {
     path: '/api/token/generate',
     method: ['POST']
+  },
+  {
+    path: '/api/token/verify',
+    method: ['POST']
   }
 ]
 

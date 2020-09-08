@@ -4,15 +4,7 @@
   Update: 
 */
 
-const self = {
-  test1() {
-    console.log('test1');
-  },
-
-  test2() {
-    console.log('test2');
-  },
-
+const tools = {
   // 将JSON字符串转为 对象或数组 并返回
   toParse(param) {
     if (param) {
@@ -56,7 +48,7 @@ const self = {
     let suffix = fileName.substring(index)
     let arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     for (let i = 0; i < count; i++) {
-      let num = self.random(0, 35)
+      let num = tools.random(0, 35)
       timestamp += arr[num]
     }
     let newFileName = timestamp + suffix
@@ -65,4 +57,4 @@ const self = {
   },
 }
 
-module.exports = self
+module.exports = tools

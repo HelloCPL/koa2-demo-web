@@ -8,7 +8,7 @@
 const { Rule, LinValidator } = require(`${process.cwd()}/core/lin-validator`)
 
 // 校验 id 是否存在
-class verifyIdValidator extends LinValidator {
+class VerifyIdValidator extends LinValidator {
   constructor() {
     super()
     this.id = [new Rule('isLength', '参数必传', { min: 1 })]
@@ -30,5 +30,5 @@ class verifyIdValidator extends LinValidator {
 }
 
 module.exports = {
-  verifyIdValidator
+  VerifyIdValidator
 }

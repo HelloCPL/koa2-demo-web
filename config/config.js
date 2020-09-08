@@ -43,8 +43,8 @@ const Config = () => {
         imgUrl: 'http://106.55.153.80:3000/img/', // 图片静态资源前缀
         maxFieldsSize: 20 * 1024 * 1024, // 文件上传最大限制 20M
         securityToken: { // token 配置
-          secretKey: 'mytoken', // 秘钥
-          expiresIn: 60 * 60 * 24 * 30 // 有效期30天
+          secretKey: 'this_is_the_secret_key_123456_abcdef_!@#$%^', // 秘钥
+          expiresIn: 60 * 60 * 2 // 有效期 2小时
         },
         database: { // 数据库配置
           dbName: 'dormitory', // 数据库名称
