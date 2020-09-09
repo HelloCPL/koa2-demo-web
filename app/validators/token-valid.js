@@ -15,10 +15,8 @@ class VerifyIdValidator extends LinValidator {
   }
 
   async validateIsId(vals) {
-    console.log(vals);
     const { db } = require(`${process.cwd()}/core/db`)
     let id = vals.body.id
-    console.log(id);
     const sql = `SELECT id FROM tb_admin WHERE id = ?;`
     const res = await db.query(sql, id)
     if(res.err) {

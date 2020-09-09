@@ -7,15 +7,38 @@
 // 导入路由
 const Router = require('koa-router')
 const router = new Router({ prefix: '/api' })
+// 导入业务处理方法
+const UploadFileModel = require(`${process.cwd()}/app/model/token-model`)
+const { ParameterValidator } = require(`${process.cwd()}/app/validators/common-valid`)
 
 // 单个图片上传
+router.post('/img/upload', async (ctx, next) => {
+  UploadFileModel.imgUpload(ctx)
+})
 
-// 图片删除（多个）
-// 参数 ids(必填)
+// 单个图片删除
+// 参数 必填 id
+router.get('/img/delete', async (ctx, next) => {
+  const v = await new ParameterValidator({
+    key: 'id',
+    rules: ['isLength', '参数必填', { min: 1 }]
+  }).validate(ctx)
+  UploadFileModel.fileDelete(await v.get('query.id'))
+})
 
 // 单个文件上传
+router.post('/file/upload', async (ctx, next) => {
+  UploadFileModel.fileUpload(ctx)
+})
 
-// 文件删除（多个）
-// 参数 ids(必填)
+// 单个文件删除
+// 参数 必填 id 
+router.get('/file/delete', async (ctx, next) => {
+  const v = await new ParameterValidator({
+    key: 'id',
+    rules: ['isLength', '参数必填', { min: 1 }]
+  }).validate(ctx)
+  UploadFileModel.fileDelete(await v.get('query.id'))
+})
 
 module.exports = router

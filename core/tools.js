@@ -55,6 +55,30 @@ const tools = {
     if (type) newFileName = name + '-' + newFileName
     return newFileName
   },
+
+  // 获取当前时间戳
+  getTimeValue() {
+    return new Date().valueOf()
+  },
+
+  // 将文件大小转为可描述文字
+  getSizeWord(size) {
+    try {
+      let size1 = size / 1024 / 1024
+      let size2 = size / 1024
+      if (size1 >= 1) {
+        return size1.toFixed(2) + 'M'
+      } else if (size2 >= 1) {
+        return size2.toFixed(2) + 'KB'
+      } else {
+        return parseInt(size) + 'B'
+      }
+    } catch (e) {
+      return 0
+    }
+  },
+
+  
 }
 
 module.exports = tools

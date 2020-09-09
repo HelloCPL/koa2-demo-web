@@ -15,8 +15,9 @@ const Config = () => {
         httpPort: 3000, // http 服务端口号
         httpsPort: 443, // https 服务端口号
         baseUrl: 'http://localhost:3000/', // 服务器请求前缀
-        fileUrl: 'http://localhost:3000/file/', // 文件静态资源前缀
-        imgUrl: 'http://localhost:3000/img/', // 图片静态资源前缀
+        fileUrl: 'http://localhost:3000/files/', // 文件静态资源前缀
+        imgUrl: 'http://localhost:3000/images/', // 图片静态资源前缀
+        ueImgUrl: 'http://localhost:3000/ueimages/', // ue富文本编辑图片保存地址前缀
         maxFieldsSize: 20 * 1024 * 1024, // 文件上传最大限制 20M
         securityToken: { // token 配置
           secretKey: 'mytoken', // 秘钥
@@ -39,8 +40,9 @@ const Config = () => {
         httpPort: 3000, // http 服务端口号
         httpsPort: 443, // https 服务端口号
         baseUrl: 'http://106.55.153.80:3000/', // 服务器请求前缀
-        fileUrl: 'http://106.55.153.80:3000/file/', // 文件静态资源前缀
-        imgUrl: 'http://106.55.153.80:3000/img/', // 图片静态资源前缀
+        fileUrl: 'http://106.55.153.80:3000/files/', // 文件静态资源前缀
+        imgUrl: 'http://106.55.153.80:3000/images/', // 图片静态资源前缀
+        ueImgUrl: 'http://106.55.153.80:3000/ueimages/', // ue富文本编辑图片保存地址
         maxFieldsSize: 20 * 1024 * 1024, // 文件上传最大限制 20M
         securityToken: { // token 配置
           secretKey: 'this_is_the_secret_key_123456_abcdef_!@#$%^', // 秘钥

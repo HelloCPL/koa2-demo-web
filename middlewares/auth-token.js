@@ -39,7 +39,7 @@ class AuthToken {
 
   // 生成token 参数 用户id
   static generateToken(id) {
-    if (!id) throw new global.ParameterException({ msg: '生成token出错：请传入userId' })
+    if (!id) throw new global.ParameterException('生成token出错：请传入userId')
     return jwt.sign({ id }, global.config.securityToken.secretKey, { expiresIn: global.config.securityToken.expiresIn })
   }
 
@@ -47,11 +47,11 @@ class AuthToken {
   static verifyToken(ctx) {
     const tokenInfo = basicAuth(ctx.req)
     if (!tokenInfo || !tokenInfo.name)
-      throw new global.ForbiddenException({ msg: 'token令牌不存在' })
+      throw new global.ForbiddenException('token令牌不存在')
     try {
       jwt.verify(tokenInfo.name, global.config.securityToken.secretKey)
     } catch (error) {
-      throw new global.ForbiddenException({ msg: 'token令牌不存在' })
+      throw new global.ForbiddenException('token令牌不存在')
     }
     throw new global.Success({ data: true })
   }
