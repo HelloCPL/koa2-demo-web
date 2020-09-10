@@ -12,7 +12,8 @@ const router = new Router({ prefix: '/api' })
 const { VerifyIdValidator } = require(`${process.cwd()}/app/validators/token-valid`)
 // 导入业务处理方法
 const TokenModel = require(`${process.cwd()}/app/model/token-model`)
-const { ParameterValidtor } = require(`${process.cwd()}/app/validators/common-valid`)
+const CommonModel = require(`${process.cwd()}/app/model/common-model`)
+const { ParameterValidator } = require(`${process.cwd()}/app/validators/common-valid`)
 // 请求生成 token
 // 参数 必填 id
 router.post('/token/generate', async (ctx, next) => {
@@ -31,17 +32,9 @@ router.post('/token/verify', async (ctx, next) => {
 
 // 测试接口
 // 参数 必填) a 选填 b
-router.post('/test', async (ctx, next) => {
-  const v = await new ParameterValidtor({
-    key: 'a',
-    rules: ['isLength', '参数必填', { min: 1 }]
-  }).validate(ctx)
-  let a = await v.get('body.a')
-  let b = await v.get('body.b')
-  let c = await v.get('header.content-type')
-  throw new global.Success({
-    data: `a=${a} b=${b} c=${c}`
-  })
+router.all('/test', async (ctx, next) => {
+  let info = await CommonModel.getFileInfo('28,29', true, true)
+  throw new global.Success({data: info})
 })
 
 module.exports = router

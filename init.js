@@ -57,7 +57,7 @@ class InitManager {
 
   // 初始化静态资源
   static initStatic(app) {
-    const pathStatic = path.join(__dirname, '../static')
+    const pathStatic = path.join(__dirname, './static')
     app.use(KoaStatic(pathStatic)) // 访问路径如  http://localhost:3000/images/bg.jpg
 
     // 处理需要token权限才能访问的静态资源目录

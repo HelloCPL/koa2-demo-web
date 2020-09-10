@@ -14,7 +14,7 @@ class AuthToken {
   get m() {
     return async (ctx, next) => {
       console.log(`访问的接口是：${ctx.method} ${ctx.path}`);
-      if (judgeToken(ctx.method, ctx.path)) {
+      if (judgeToken(ctx.method, ctx.path) && global.config.verifyToken) {
         // 获取解析后的 token
         const tokenInfo = basicAuth(ctx.req)
         let errmsg = 'token不合法'

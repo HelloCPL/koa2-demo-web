@@ -10,7 +10,7 @@ const { Rule, LinValidator } = require(`${process.cwd()}/core/lin-validator`)
 //参数单个可为对象 {key, rules: [[type, msg, rule], [type2, msg2, rule], ...]}
 //参数多个为数组 [{key, rules: [[type, msg, rule], ...]}, ...] 
 // type类型看官网 https://www.npmjs.com/package/validator https://github.com/validatorjs/validator.js
-class ParameterValidtor extends LinValidator {
+class ParameterValidator extends LinValidator {
   constructor(rules) {
     super()
     if (global._.isArray(rules)) {
@@ -48,5 +48,5 @@ class ParameterValidtor extends LinValidator {
 }
 
 module.exports = {
-  ParameterValidtor
+  ParameterValidator
 }

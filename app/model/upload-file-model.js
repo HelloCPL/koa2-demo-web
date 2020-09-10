@@ -33,22 +33,21 @@ class UploadFileModel {
     }
   }
 
-   // 删除图片或文件
-   static async fileDelete(id) {
+  // 删除图片或文件
+  static async fileDelete(id) {
     let sql = 'SELECT id, place, file_path as filePath FROM tb_files WHERE id = ?;'
     let data = [id]
     let res = await db.query(sql, data)
     if (res.err) {
-      throw new global.HttpException(res.err )
+      throw new global.HttpException(res.err)
     } else {
-      let imgInfo = res.data[0]
       let sql2 = 'DELETE FROM tb_files WHERE id = ?;'
       let res2 = await db.query(sql2, data)
       if (res2.err) {
         throw new global.HttpException(res2.err)
       } else {
         if (res2.data && res2.data.affectedRows) {
-          await _deleteFileInfo(imgInfo)
+          await UploadFileModel._deleteFileInfo(res.data[0])
           throw new global.Success()
         } else {
           throw new global.HttpException('删除失败，该id不存在')
@@ -65,7 +64,7 @@ class UploadFileModel {
       const reader = fs.createReadStream(file.path)
       let filePath = global.tools.getFileName(file.name)
       let targetPath = path.join(__dirname, `../../static/${place}/`, filePath)
-      const upStream = fs.createReadStream(targetPath)
+      const upStream = fs.createWriteStream(targetPath)
       reader.pipe(upStream)
       let createTime = global.tools.getTimeValue()
       let sqlList = [
@@ -74,7 +73,7 @@ class UploadFileModel {
           data: [createTime, filePath, place, file.name, file.size, file.type]
         },
         {
-          sql: 'SELECT LAST_INSERT_ID();'
+          sql: 'SELECT LAST_INSERT_ID() as id;'
         }
       ]
       let res = await db.execTrans(sqlList)
@@ -98,11 +97,12 @@ class UploadFileModel {
 
   // 删除图片文件
   static async _deleteFileInfo(fileInfo) {
-    let filePath = path.join(__dirname, `../../static/${place}/`, fileInfo.filePath)
-    let stat = fs.statSync(filePath)
-    if (stat.isFile()) {
-      fs.unlinkSync(filePath)
-    }
+    try {
+      let filePath = path.join(__dirname, `../../static/${fileInfo.place}/`, fileInfo.filePath)
+      let stat = fs.statSync(filePath)
+      if (stat.isFile())
+        fs.unlinkSync(filePath)
+    } catch (e) { }
   }
 }
 

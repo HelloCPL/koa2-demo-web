@@ -71,14 +71,15 @@ const tools = {
       } else if (size2 >= 1) {
         return size2.toFixed(2) + 'KB'
       } else {
-        return parseInt(size) + 'B'
+
+        return size ? parseInt(size) + 'B' : 0
       }
     } catch (e) {
       return 0
     }
   },
 
-  
+
 }
 
 module.exports = tools

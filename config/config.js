@@ -12,6 +12,7 @@ const Config = () => {
     case 'dev': // 测试环境配置
       return {
         environment: Env, // 环境
+        verifyToken: false, // 是否校验token
         httpPort: 3000, // http 服务端口号
         httpsPort: 443, // https 服务端口号
         baseUrl: 'http://localhost:3000/', // 服务器请求前缀
@@ -37,6 +38,7 @@ const Config = () => {
     case 'prod': // 生产环境配置
       return {
         environment: Env, // 环境
+        verifyToken: true, // 是否校验token
         httpPort: 3000, // http 服务端口号
         httpsPort: 443, // https 服务端口号
         baseUrl: 'http://106.55.153.80:3000/', // 服务器请求前缀
