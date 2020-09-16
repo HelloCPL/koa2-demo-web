@@ -13,7 +13,7 @@ const { VerifyIdValidator } = require(`${process.cwd()}/app/validators/token-val
 // 导入业务处理方法
 const TokenModel = require(`${process.cwd()}/app/model/token-model`)
 const CommonModel = require(`${process.cwd()}/app/model/common-model`)
-const { ParameterValidator } = require(`${process.cwd()}/app/validators/common-valid`)
+const { ParameterValidator, VerifyUserId } = require(`${process.cwd()}/app/validators/common-valid`)
 // 请求生成 token
 // 参数 必填 id
 router.post('/token/generate', async (ctx, next) => {
@@ -33,7 +33,7 @@ router.post('/token/verify', async (ctx, next) => {
 // 测试接口
 // 参数 必填) a 选填 b
 router.all('/test', async (ctx, next) => {
-  let info = await CommonModel.getFileInfo('28,29', true, true)
+  let info = await CommonModel.getUserInfo(1)
   throw new global.Success({data: info})
 })
 

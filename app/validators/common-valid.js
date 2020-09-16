@@ -1,6 +1,6 @@
 /*
   Author: chen
-  Description: 通用的校验方法 包括 普通的参数校验(类型，是否必传等)
+  Description: 通用的校验方法 包括 普通的参数校验(类型，是否必传等) 判断用户id是否存在
   Update: 
 */
 
@@ -23,13 +23,13 @@ class ParameterValidator extends LinValidator {
       // 对象
       this._setRule(rules)
     } else {
-      throw new Error('服务器发生错误，普通参数校验传参有误1')
+      throw new Error('服务器发生错误，普通参数校验传参有误')
     }
   }
 
   // 设置校验
   _setRule(rule) {
-    if (!global._.isArray(rule.rules)) throw new Error('服务器发生错误，普通参数校验传参有误2')
+    if (!global._.isArray(rule.rules)) throw new Error('服务器发生错误，普通参数校验传参有误')
     let ruleList = []
     if (global._.isArray(rule.rules[0])) {
       for (let i = 0, len = rule.rules.length; i < len; i++) {
@@ -47,6 +47,27 @@ class ParameterValidator extends LinValidator {
   }
 }
 
+// 判断用户 id 是否存在
+// 参数 id
+class VerifyUserId extends LinValidator {
+  constructor(userId) {
+    super()
+    this.userId = userId
+  }
+
+  async validateIsId() {
+    const { db } = require(`${process.cwd()}/core/db`)
+    const sql = `SELECT id FROM tb_admin WHERE id = ?;`
+    const res = await db.query(sql, this.userId)
+    if(res.err) {
+      throw new Error(res.err)
+    } else if(!res.data[0]) {
+      throw new Error('用户id不存在')
+    }
+  }
+}
+
 module.exports = {
-  ParameterValidator
+  ParameterValidator,
+  VerifyUserId
 }

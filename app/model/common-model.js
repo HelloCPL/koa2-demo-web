@@ -42,6 +42,21 @@ class CommonModel {
     }
     return formatArr ? [] : null
   }
+
+  // 获取用户详细信息
+  // 参数1 用户id
+  static async getUserInfo(userId) {
+    if (!userId) return null
+    let sql = 'SELECT * FROM tb_students WHERE id = ?;'
+    let res = await db.query(sql, userId)
+    if (res.err) {
+      throw new global.HttpException({ data: res.err })
+    } else {
+      let data = res.data[0] || null
+      if (data && data.password) delete data.password
+      return data
+    }
+  }
 }
 
 module.exports = CommonModel
