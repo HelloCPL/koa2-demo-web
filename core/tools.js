@@ -4,7 +4,37 @@
   Update: 
 */
 
+/*
+  方法集合说明：
+  getTimeValue() 获取当前时间戳
+  参数 无
+
+  toParse(params) 将JSON字符串转为 对象或数组 并返回
+  参数 params JSON格式的字符串
+
+  toStringify(param) 转为JSON格式字符串 并返回
+  参数 params 对象或数组
+
+  getSizeWord(size) 将文件大小转为可描述文字
+  参数 size 文件大小，单位 K
+
+  random(lower, upper) 返回 [lower, upper] 的随机整数
+  参数 lower 最小值； upper 最大值
+
+  getFileName(fileName, count = 5, type = false) 返回随机文件名
+  参数 fileName 原文件名(包含后缀名)； count 遍历次数； type 文件名类(false 时间戳+随机数，true 原文件名+时间戳+随机数)
+
+  getCamelCase(obj, type = '_') 将对象键值名 由指定字符（默认下划线）转为驼峰命名
+  参数 obj 对象 type 指定字符(默认下划线)
+
+*/
+
 const tools = {
+  // 获取当前时间戳
+  getTimeValue() {
+    return new Date().valueOf()
+  },
+
   // 将JSON字符串转为 对象或数组 并返回
   toParse(param) {
     if (param) {
@@ -33,6 +63,24 @@ const tools = {
     }
   },
 
+  // 将文件大小转为可描述文字
+  getSizeWord(size) {
+    try {
+      let size1 = size / 1024 / 1024
+      let size2 = size / 1024
+      if (size1 >= 1) {
+        return size1.toFixed(2) + 'M'
+      } else if (size2 >= 1) {
+        return size2.toFixed(2) + 'KB'
+      } else {
+
+        return size ? parseInt(size) + 'B' : 0
+      }
+    } catch (e) {
+      return 0
+    }
+  },
+
   // 返回 [lower, upper] 的随机整数
   random(lower, upper) {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower
@@ -56,30 +104,27 @@ const tools = {
     return newFileName
   },
 
-  // 获取当前时间戳
-  getTimeValue() {
-    return new Date().valueOf()
-  },
-
-  // 将文件大小转为可描述文字
-  getSizeWord(size) {
-    try {
-      let size1 = size / 1024 / 1024
-      let size2 = size / 1024
-      if (size1 >= 1) {
-        return size1.toFixed(2) + 'M'
-      } else if (size2 >= 1) {
-        return size2.toFixed(2) + 'KB'
-      } else {
-
-        return size ? parseInt(size) + 'B' : 0
+  // 将对象键值名 由指定字符（默认下划线）转为驼峰命名
+  getCamelCase(obj, type = '_') {
+    let o = {}
+    if (global._.isPlainObject(obj)) {
+      // 将字符串转为驼峰命名
+      let _getCamelCase = str => {
+        let arr = str.split(type)
+        return arr.map((item, index) => {
+          if (index === 0) return item
+          return item.charAt(0), toUpperCase() + item.slice(1)
+        }).join('')
       }
-    } catch (e) {
-      return 0
+      for (let key in obj) {
+        let oKey = _getCamelCase(key)
+        o[oKey] = obj[key]
+      }
+      return o
+    } else {
+      return obj
     }
-  },
-
-
+  }
 }
 
 module.exports = tools

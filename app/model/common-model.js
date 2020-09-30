@@ -54,6 +54,7 @@ class CommonModel {
     } else {
       let data = res.data[0] || null
       if (data && data.password) delete data.password
+      data = global.tools.getCamelCase(data)
       return data
     }
   }

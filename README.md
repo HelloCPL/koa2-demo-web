@@ -8,8 +8,11 @@
   - package.json // 项目依赖
   - app 目录
     - api 目录 // 存放 api 路由入口的文件
-    - model 目录 // 存放处理涉及 api 有关的业务和数据返回的文件
+      - 自带 token生成、校验，图片、文件上传与删除，ueditor富文本附件上传 等默认api
+    - model 目录 // 存放处理涉及 api 有关的业务和数据返回的业务操作文件
+      - 自带 获取用户信息，根据ids获取图片，生成和校验token 等默认业务方法
     - validators 目录 // 存放处理涉及 api 参数校验的文件
+      - 自带 普通参数校验，用户id是否存在 等默认校验方法
   - config 目录
     - api-white-list.js // api 路由白名单配置 跳过 token 校验
     - config.js // 开发/正式环境的全局参数配置
@@ -24,6 +27,11 @@
   - middlewares 目录 // 存放全局中间件拦截文件
     - auth-token.js // 处理 token 权限判断，并提供生成 token 和校验 token 合法性方法
     - exception.js // 统一对异常做处理，通过异常处理返回数据
+  - static 目录 // 存放静态资源
+    - files 目录 // 存放文件
+    - images 目录 // 存放图片
+    - ueimages 目录 // 存放富文本附件
+  - test 目录 // 测试文件集合
 ```
 
 ## 项目启动
@@ -33,6 +41,23 @@
 - `npm run dev` 开发环境
 
 - 或 `npm run prod` 正式环境 
+
+## 常用方法说明
+
+- `mount-to-global.js` global 全局变量挂载
+  + lodash 工具类 
+    `global._`
+  + 全局配置 
+    `global.config`
+  + 全局异常类 
+    `global.HttpException` // 系统异常
+    `global.ParameterException` // 参数异常
+    `global.NotFoundException` // 404异常
+    `global.ForbiddenException` // 权限不足异常
+    `global.AuthException` // token无效或过期异常
+    `global.Success` // 成功类 特殊异常类，借助异常返回数据
+  + 全局常用方法集合 
+    `global.tools` // 常用的业务方法，具体看 `tools.js`
 
 ## 新项目开发帮助
 
@@ -45,4 +70,3 @@
   + `validators 目录` api 参数校验类，如需要校验自定义（如类型、异步查询数据库等）以 `validate` 开头定义方法即可，参数可通过 `get('XX.xx')` 获取（XX根据前端传参方式的不同做对应处理，如 `body.id` `query.id` `path.id` `header.content-type`）
 
   + `model 目录` api 业务处理和数据返回
-  
