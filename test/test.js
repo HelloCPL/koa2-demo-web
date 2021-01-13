@@ -10,5 +10,10 @@
     type VARCHAR(255),
     remark VARCHAR(255)
   );
-  
-*/ 
+
+*/
+
+let test              =              '测试'
+
+let sa =              'sdfs'
+let s='sd'
