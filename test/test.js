@@ -17,3 +17,5 @@ let test              =              '测试'
 
 let sa =              'sdfs'
 let s='sd'
+
+let abj = 'abj'
